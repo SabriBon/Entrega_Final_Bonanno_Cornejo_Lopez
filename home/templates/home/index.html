@@ -39,6 +39,15 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'accommodation:accommodation-list' %}">Hospedajes</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'forum:forum-list' %}">Foro</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="navbar-brand" href="{% url 'home:user-update' %}">Editar usuario</a></li>
+                        <li class="nav-item"><a class="navbar-brand" href="{% url 'logout' %}">Cerrar Sesión - {{ user.username }}</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="navbar-brand" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                        {% endif %}                        
                         
                     </ul>
                 </div>
