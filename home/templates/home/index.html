@@ -53,6 +53,10 @@
                 </div>
             </div>
         </nav>
+
+
+
+
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
@@ -99,6 +103,29 @@
                         </div>
                     </div>
                 </div>
+
+                {% block mochilas_viajeras_header %}
+                    <div class="container position-relative px-1 px-lg-1">
+                        <div class="row gx-1 gx-lg-1 justify-content-center">
+                                    {% if user.is_authenticated %}
+                                        <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                                        <h4>Bienvenid@!!!</h4>
+                                    {% endif %}
+                                    {% if avatar_url %}
+                                        <a href="{% url 'home:avatar-load' %}"><img height="260px" src="{{avatar_url}}"></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div style="background-color: #ffffff; width: 87%;" color>Avatar URL: {{ avatar_url }}</div> -->
+                        {% if not avatar_url %}
+                            <a class="button_custom" href="{% url 'home:avatar-load' %}">Cargar Avatar</a>
+                        {% endif %}
+                    </div>
+                </header>
+                {% endblock %}
+
 <!-- About-->
 <section class="page-section" id="about">
     <div class="container">
