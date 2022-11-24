@@ -2,6 +2,11 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
 from django.shortcuts import render
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 from accommodation.forms import AccommodationForm
@@ -122,13 +127,6 @@ def accommodation_delete(request, pk: int):
         template_name="accommodation/accommodation_confirm_delete.html",
     )
 
-from django.core.exceptions import ValidationError
-from django.urls import reverse_lazy
-from django.views.generic import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
-from accommodation.models import Accommodation
 
 
 class AccommodationListView(ListView):
@@ -171,7 +169,7 @@ class AccommodationCreateView(CreateView):
 
 class AccommodationUpdateView(UpdateView):
     model = Accommodation
-    fields = ["name", "name", "description"]
+    fields = ["name","description"]
 
     def get_success_url(self):
         accommodation_id = self.kwargs["pk"]

@@ -64,20 +64,21 @@ Accommodation detail
     
     <p class="post-meta">
         Creado por
-        <a href="#!">Start Bootstrap</a> 
+        <span style="color: #0b4956;" href="">{{ accommodation.owner.username }}</span>
         en {{ accommodation.created_at }}
         <br>
         Última fecha de actualización {{ accommodation.updated_at }}
         <br>
         Ubicado en: {{ accommodation.location }}
         <br>
-        Teléfono de contacto {{ accommodation.contact }}
+        Teléfono de contacto: {{ accommodation.contact }}
         <br>
-        Precio {{ accommodation.price }}
+        Precio: {{ accommodation.price }}
         <br>   
              
     </p>
     
+
     <p class="card-text ">Comentario: {{ accommodation.description|safe }}</p> <!-- ckeditor-->
     <p style="text-align: center">
         <a href="{% url 'accommodation:accommodation-update' accommodation.id %}">

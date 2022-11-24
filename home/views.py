@@ -6,12 +6,12 @@ from django.forms.models import model_to_dict
 from django.shortcuts import redirect
 from django.shortcuts import render
 
-
 from accommodation.models import Accommodation
 from home.forms import AvatarForm
 from home.forms import UserRegisterForm
 from home.forms import UserUpdateForm
 from home.models import Avatar
+
 
 def get_avatar_url_ctx(request):
     avatars = Avatar.objects.filter(user=request.user.id)
@@ -23,16 +23,18 @@ def get_avatar_url_ctx(request):
 def index(request):
     return render(
         request=request,
-        context={},
+        context=get_avatar_url_ctx(request),
         template_name="home/index.html",
     )
+
+
 def search(request):
     search_param = request.GET["search_param"]
     print("search: ", search_param)
     context_dict = dict()
     if search_param:
         query = Q(name__contains=search_param)
-        query.add(Q(location__contains=search_param), Q.OR)
+        query.add(Q(code__contains=search_param), Q.OR)
         accommodations = Accommodation.objects.filter(query)
         context_dict.update(
             {
@@ -43,15 +45,16 @@ def search(request):
     return render(
         request=request,
         context=context_dict,
-        template_name="accommodation/accommodation_list.html",
+        template_name="home/index.html",
     )
+
 
 def register(request):
     form = UserRegisterForm(request.POST) if request.POST else UserRegisterForm()
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            messages.success(request, "El usuario ha sido creado!")
+            messages.success(request, "Usuario creado exitosamente!")
             return redirect("login")
 
     return render(
@@ -93,7 +96,7 @@ def avatar_load(request):
                     os.remove(avatar.image.path)
                 avatar.image = image
             avatar.save()
-            messages.success(request, "Imagen subida con éxito")
+            messages.success(request, "Imagen cargada exitosamente")
             return redirect("home:index")
 
     form = AvatarForm()

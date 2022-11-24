@@ -93,7 +93,7 @@ Accommodation list
             </div>
         </section>
 
-{% for accommodation in accommodations %}
+{% for accommodation in accommodation_list %}
     <!-- Post preview-->
     <div class="post-preview">
         <a href="{% url 'accommodation:accommodation-detail' accommodation.id %}">

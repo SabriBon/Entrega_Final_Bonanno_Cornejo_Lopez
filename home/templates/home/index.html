@@ -83,7 +83,7 @@
         
                             <!-- Si hay resultados en el buscador los presenta -->
                             {% if accommodations %}
-                            {% for accommodation in accommodation_list%}
+                            {% for accommodation in accommodations%}
                                 <!-- Post preview-->
                                 <div class="post-preview">
                                     <a href="{% url 'accommodation:accommodation-detail' accommodation.id %}">
@@ -91,7 +91,7 @@
                                     </a>
                                     <p class="post-meta">
                                         Creado por
-                                        <a href="#!">Start Bootstrap</a> 
+                                        <span style="color: #0b4956;" href="">{{ accommodation.owner.username }}</span>
                                         en {{ accommodation.created_at }}
                                     </p>
                                 </div>

@@ -7,6 +7,7 @@ from accommodation.models import Accommodation
 class AccommodationForm(forms.ModelForm):
     name = forms.CharField(
         label="Nombre del alojamiento",
+        max_length=40,
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -35,7 +36,6 @@ class AccommodationForm(forms.ModelForm):
             attrs={
                 "class": "accommodation-contact",
                 "placeholder": "Ingrese un número",
-                "required": "False",
             }
         ),
     )
@@ -46,7 +46,6 @@ class AccommodationForm(forms.ModelForm):
             attrs={
                 "class": "accommodation-price",
                 "placeholder": "Ingrese precio por noche ",
-                "required": "False",
             }
         ),
     )
