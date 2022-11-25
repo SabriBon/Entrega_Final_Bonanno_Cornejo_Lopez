@@ -11,7 +11,7 @@ class ForumForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "class": "forum-name",
-                "placeholder": "Ingrese el Viajero",
+                "placeholder": "Ingrese su nombre",
                 "required": "True",
             }
         ),
@@ -34,7 +34,7 @@ class ForumForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "class": "forum-contact",
-                "placeholder": "Ingrese un número de contacto ",
+                "placeholder": "Ingrese un número ",
                 "required": "False",
             }
         ),
@@ -54,4 +54,4 @@ class ForumForm(forms.ModelForm):
     
     class Meta:
         model = Forum
-        fields = ["name", "contact", "description", 'email', ]
+        fields = ["name", "contact", 'email', "description",  ]

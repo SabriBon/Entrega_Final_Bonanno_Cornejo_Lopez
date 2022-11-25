@@ -1,8 +1,12 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
-from forum.models import Forum
+from django.shortcuts import render
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
 from forum.forms import ForumForm
@@ -19,7 +23,7 @@ def forum(request):
     return render(
         request=request,
         context={"forum_list": get_forum(request)},
-        template_name="forum_list.html",
+        template_name="forum/forum_list.html",
     )   
 def create_forum(request):
    if request.method == "POST":
@@ -121,14 +125,6 @@ def forum_delete(request, pk: int):
         template_name="forum/forum_confirm_delete.html",
     )
 
-from django.core.exceptions import ValidationError
-from django.urls import reverse_lazy
-from django.views.generic import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
-from forum.models import Forum
-
 
 class ForumListView(ListView):
     model = Forum
@@ -151,19 +147,19 @@ class ForumCreateView(CreateView):
         """Filter to avoid duplicate accommodations"""
         data = form.cleaned_data
         actual_objects = Forum.objects.filter(
-            name=data["name"],
+            description=data["description"],
         ).count()
         if actual_objects:
             messages.error(
                 self.request,
-                f"El alojamiento {data['name']} ya está registrado",
+                f"El meensaje {data['description']} ya fue registrado anteriormente",
             )
             form.add_error("name", ValidationError("Acción no válida"))
             return super().form_invalid(form)
         else:
             messages.success(
                 self.request,
-                f"Alojamiento {data['name']} agregado exitosamente!",
+                f"Mensaje {data['description']} subido exitosamente!",
             )
             return super().form_valid(form)
 
