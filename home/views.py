@@ -34,7 +34,7 @@ def search(request):
     context_dict = dict()
     if search_param:
         query = Q(name__contains=search_param)
-        query.add(Q(code__contains=search_param), Q.OR)
+        query.add(Q(name__contains=search_param), Q.OR)
         accommodations = Accommodation.objects.filter(query)
         context_dict.update(
             {
