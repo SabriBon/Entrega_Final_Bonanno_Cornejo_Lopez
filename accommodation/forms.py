@@ -19,6 +19,7 @@ class AccommodationForm(forms.ModelForm):
     )
     location = forms.CharField(
         label="Ubicación del alojamiento",
+        max_length=100,
         required=False,
         widget=forms.TextInput(
             attrs={
@@ -29,7 +30,7 @@ class AccommodationForm(forms.ModelForm):
         ),
     )
     
-    contact = forms.CharField(
+    contact = forms.IntegerField(
         label="Teléfono de contacto",
         required=False,
         widget=forms.TextInput(
@@ -39,7 +40,7 @@ class AccommodationForm(forms.ModelForm):
             }
         ),
     )
-    price = forms.CharField(
+    price = forms.IntegerField(
         label="Precio",
         required=False,
         widget=forms.TextInput(
