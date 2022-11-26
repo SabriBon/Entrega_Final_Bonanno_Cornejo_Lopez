@@ -2,7 +2,11 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.forms.models import model_to_dict
 from django.shortcuts import render
-
+from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from my_app.forms import ViajeForm
 from my_app.models import Viaje
@@ -121,15 +125,6 @@ def destino_delete(request, pk: int):
         template_name="my_app/destino_confirm_delete.html",
     )
 
-from django.core.exceptions import ValidationError
-from django.urls import reverse_lazy
-from django.views.generic import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-
-from my_app.models import Viaje
-
-
 class ViajeListView(ListView):
     model = Viaje
     paginate_by = 3
@@ -142,7 +137,7 @@ class ViajeDetailView(DetailView):
 
 class ViajeCreateView(CreateView):
     model = Viaje
-    success_url = reverse_lazy("destino:destino-list")
+    success_url = reverse_lazy("my_app:destino-list")
 
     form_class = ViajeForm
     fields = ["name", "year", "description"]
@@ -175,12 +170,12 @@ class ViajeUpdateView(UpdateView):
 
     def get_success_url(self):
         destino_id = self.kwargs["pk"]
-        return reverse_lazy("destino:destino-detail", kwargs={"pk": destino_id})
+        return reverse_lazy("my_app:destino-detail", kwargs={"pk": destino_id})
 
 
 class ViajeDeleteView(DeleteView):
     model = Viaje
-    success_url = reverse_lazy("destino:destino-list")
+    success_url = reverse_lazy("my_app:destino-list")
 
 
 
