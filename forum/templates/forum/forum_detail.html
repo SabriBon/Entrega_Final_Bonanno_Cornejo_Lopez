@@ -65,14 +65,16 @@ Forum list
         <span style="color: #0b4956;" href="">{{ forum.owner.username }}</span>
         ( {{ forum.created_at }} )
         <br>
-        Dirección de contacto: {{ forum.email }}
+        Mail de contacto: {{ forum.email }}
+        <br>
+        Comentario: {{ forum.description }}
     </p>
 
     <!-- Description -->
     <p class="card-text ">{{ forum1.description|safe }}</p> <!-- ckeditor-->
 
     <!-- Update-Delete link only for the owner -->
-    {% if user == accommodation.owner or user.is_superuser %}
+    {% if user == forum.owner or user.is_superuser %}
     <p style="text-align: center">
         <a href="{% url 'forum:forum-update' forum.id %}">
             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
