@@ -11,8 +11,8 @@ class AccommodationTestCase(TestCase):
             username="testuser",
             password="12345",
         )
-        Accommodation.objects.create(name="Python", code=123, owner=self.test_user)
-        Accommodation.objects.create(name="Docker", code=789, owner=self.test_user)
+        Accommodation.objects.create(name="Llao", contact=123, owner=self.test_user)
+        Accommodation.objects.create(name="Francia", contact=789, owner=self.test_user)
 
         accommodation_test_num = 20
         self.mock_names = [
@@ -24,7 +24,7 @@ class AccommodationTestCase(TestCase):
             )
             for _ in range(accommodation_test_num)
         ]
-        self.mock_locations = [
+        self.mock_contacts = [
             int(
                 "".join(
                     [
@@ -36,20 +36,20 @@ class AccommodationTestCase(TestCase):
             for _ in range(accommodation_test_num)
         ]
 
-        for mock_name, mock_location in zip(self.mock_names, self.mock_locations):
-            Accommodation.objects.create(name=mock_name, code=mock_location, owner=self.test_user)
+        for mock_name, mock_contact in zip(self.mock_names, self.mock_contacts):
+            Accommodation.objects.create(name=mock_name, contact=mock_contact, owner=self.test_user)
 
     def test_accommodation_model(self):
         """Accommodation creation are correctly identified"""
-        python_accommodation = Accommodation.objects.get(name="Python")
-        docker_accommodation = Accommodation.objects.get(name="Docker")
-        self.assertEqual(python_accommodation.owner.username, "testuser")
-        self.assertEqual(docker_accommodation.owner.username, "testuser")
-        self.assertEqual(python_accommodation.code, 123)
-        self.assertEqual(docker_accommodation.code, 789)
+        llao_accommodation = Accommodation.objects.get(name="Llao")
+        francia_accommodation = Accommodation.objects.get(name="Francia")
+        self.assertEqual(llao_accommodation.owner.username, "testuser")
+        self.assertEqual(francia_accommodation.owner.username, "testuser")
+        self.assertEqual(llao_accommodation.contact, 123)
+        self.assertEqual(francia_accommodation.contact, 789)
 
-    def test_accommodation_list(self):
-        for mock_name, mock_location in zip(self.mock_names, self.mock_locations):
+    def test_course_list(self):
+        for mock_name, mock_contact in zip(self.mock_names, self.mock_contacts):
             accommodation_test = Accommodation.objects.get(name=mock_name)
             self.assertEqual(accommodation_test.owner.username, "testuser")
-            self.assertEqual(accommodation_test.code, mock_location)
+            self.assertEqual(accommodation_test.contact, mock_contact)
