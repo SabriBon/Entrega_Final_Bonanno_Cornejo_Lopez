@@ -2,7 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 
 
-class Viaje(models.Model):
+class Destino(models.Model):
     name = models.CharField(max_length=40)
     year = models.IntegerField()
     description = RichTextField(null=True, blank=True)

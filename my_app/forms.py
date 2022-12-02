@@ -1,10 +1,10 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 
-from my_app.models import Viaje
+from my_app.models import Destino
 
 
-class ViajeForm(forms.ModelForm):
+class DestinoForm(forms.ModelForm):
     name = forms.CharField(
         label="Lugar de destino",
         required=False,
@@ -42,5 +42,5 @@ class ViajeForm(forms.ModelForm):
 
 
     class Meta:
-        model = Viaje
+        model = Destino
         fields = ["name", "year", "description"]

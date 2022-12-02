@@ -8,12 +8,12 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from my_app.forms import ViajeForm
-from my_app.models import Viaje
+from my_app.forms import DestinoForm
+from my_app.models import Destino
 
 
 def get_destinos(request):
-   destinos = Viaje.objects.all()
+   destinos = Destino.objects.all()
    paginator = Paginator(destinos, 3)
    page_number = request.GET.get("page")
    return paginator.get_page(page_number)
@@ -27,16 +27,16 @@ def destinos(request):
 
 def create_destino(request):
    if request.method == "POST":
-       destino_form = ViajeForm(request.POST)
+       destino_form = DestinoForm(request.POST)
        if destino_form.is_valid():
            data = destino_form.cleaned_data
-           actual_objects = Viaje.objects.filter(
+           actual_objects = Destino.objects.filter(
                name=data["name"],
                year=data["year"],
            ).count()
            print("actual_objects", actual_objects)
            if not actual_objects:
-                destino = Viaje( 
+                destino = Destino( 
                     name=data["name"],
                     year=data["year"],)
                 destino.save()
@@ -57,7 +57,7 @@ def create_destino(request):
                 )
 
 
-   destino_form = ViajeForm(request.POST) 
+   destino_form = DestinoForm(request.POST) 
    context_dict = {"form": destino_form}
    return render(
        request=request,
@@ -68,16 +68,16 @@ def create_destino(request):
 def destino_detail(request, pk: int):
     return render(
         request=request,
-        context={"destino": Viaje.objects.get(pk=pk)},
+        context={"destino": Destino.objects.get(pk=pk)},
         template_name="my_app/destino_detail.html",
     )
 
 
 def destino_update(request, pk: int):
-    destino = Viaje.objects.get(pk=pk)
+    destino = Destino.objects.get(pk=pk)
 
     if request.method == "POST":
-        destino_form = ViajeForm(request.POST)
+        destino_form = DestinoForm(request.POST)
         if destino_form.is_valid():
             data = destino_form.cleaned_data
             destino.name = data["name"]
@@ -91,7 +91,7 @@ def destino_update(request, pk: int):
                 template_name="my_app/destino_detail.html",
             )
 
-    destino_form = ViajeForm(model_to_dict(destino))
+    destino_form = DestinoForm(model_to_dict(destino))
     context_dict = {
         "destino": destino,
         "form": destino_form,
@@ -104,12 +104,12 @@ def destino_update(request, pk: int):
 
 
 def destino_delete(request, pk: int):
-    destino = Viaje.objects.get(pk=pk)
+    destino = Destino.objects.get(pk=pk)
     if request.method == "POST":
         destino.delete()
 
-        destinos = Viaje.objects.all()
-        context_dict = {"destino_list": destinos}
+        destino = Destino.objects.all()
+        context_dict = {"destino_list": destino}
         return render(
             request=request,
             context=context_dict,
@@ -125,27 +125,27 @@ def destino_delete(request, pk: int):
         template_name="my_app/destino_confirm_delete.html",
     )
 
-class ViajeListView(ListView):
-    model = Viaje
+class DestinoListView(ListView):
+    model = Destino
     paginate_by = 3
 
 
-class ViajeDetailView(DetailView):
-    model = Viaje
+class DestinoDetailView(DetailView):
+    model = Destino
     fields = ["name", "year", "description"]
 
 
-class ViajeCreateView(CreateView):
-    model = Viaje
+class DestinoCreateView(CreateView):
+    model = Destino
     success_url = reverse_lazy("my_app:destino-list")
 
-    form_class = ViajeForm
+    form_class = DestinoForm
     fields = ["name", "year", "description"]
 
     def form_valid(self, form):
         """Filter to avoid duplicate destinos"""
         data = form.cleaned_data
-        actual_objects = Viaje.objects.filter(
+        actual_objects = Destino.objects.filter(
             name=data["name"],
             year=data["year"],
         ).count()
@@ -164,8 +164,8 @@ class ViajeCreateView(CreateView):
             return super().form_valid(form)
 
 
-class ViajeUpdateView(UpdateView):
-    model = Viaje
+class DestinoUpdateView(UpdateView):
+    model = Destino
     fields = ["name", "year", "description"]
 
     def get_success_url(self):
@@ -173,8 +173,8 @@ class ViajeUpdateView(UpdateView):
         return reverse_lazy("my_app:destino-detail", kwargs={"pk": destino_id})
 
 
-class ViajeDeleteView(DeleteView):
-    model = Viaje
+class DestinoDeleteView(DeleteView):
+    model = Destino
     success_url = reverse_lazy("my_app:destino-list")
 
 
