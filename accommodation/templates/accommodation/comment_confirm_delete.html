@@ -1,0 +1,18 @@
+{% extends "home/index.html" %}
+{% load static %}
+
+{% block mochilas_viajeras_title %}
+Commentario delete
+{% endblock %}
+
+{% block mochilas_viajeras_content %}
+<h1>Estás seguro de eliminar el siguiente Comentario?</h1>
+<p>{{ comment.text }}</p>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="Si, eliminar.">
+    <a class="btn btn-primary" href="{% url 'accommodation:accommodation-detail' comment.accommodation.id %}" >Cancelar</a>
+</form>
+
+{% endblock %}
