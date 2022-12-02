@@ -40,7 +40,7 @@ class DestinoDetailView(DetailView):
 
 class DestinoCreateView(LoginRequiredMixin, CreateView):
     model = Destino
-    success_url = reverse_lazy("destino:destino-list")
+    success_url = reverse_lazy("my_app:destino-list")
 
     form_class = DestinoForm
  
@@ -69,7 +69,7 @@ class DestinoCreateView(LoginRequiredMixin, CreateView):
 
 class DestinoUpdateView(LoginRequiredMixin, UpdateView):
     model = Destino
-    fields = ["name", "year", "description"]
+    fields = ["name", "year", "description","image"]
 
     def get_success_url(self):
         destino_id = self.kwargs["pk"]
