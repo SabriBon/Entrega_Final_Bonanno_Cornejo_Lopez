@@ -123,12 +123,13 @@ Find your local number: https://us02web.zoom.us/u/kdTPIxluQK
         </a>
     </p>
 </div>
+{% endif %}
 
 <!-- Divider-->
 <hr class="my-4" />
 
 <!-- Comment creation -->
-<form method="POST" action="{% url 'destino:comment-create' destino.id %}">
+<form method="POST" action="{% url 'my_app:comment-create' destino.id %}">
     {% csrf_token %}
     {{ comment_form }}
 <input type="submit" value="Publicar comentario">

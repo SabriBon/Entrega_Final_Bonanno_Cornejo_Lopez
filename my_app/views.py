@@ -23,7 +23,7 @@ class DestinoListView(ListView):
 
 class DestinoDetailView(DetailView):
     model = Destino
-    template_name = "destino/destino_detail.html"
+    template_name = "my_app/destino_detail.html"
     fields = ["name", "year", "description"]
 
     def get(self, request, pk):
