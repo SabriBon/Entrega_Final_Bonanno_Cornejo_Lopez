@@ -69,8 +69,8 @@ Forum list
         </a>
         <p class="post-meta">
             Creado por
-            <a href="#!">Start Bootstrap</a> 
-            en {{ forum.created_at }}
+            <span style="color: #0b4956;" href="">{{ forum.owner.username }}</span>
+            ( {{ forum.created_at }} )
         </p>
     </div>
     <!-- Divider-->
@@ -81,20 +81,20 @@ Forum list
 <div class="container p-4">
     <div class="pagination justify-content-center">
         <span class="step-links">
-            {% if accommodation_list.has_previous %}
+            {% if forum.has_previous %}
                 <a href="?page=1">&laquo; first</a> |
-                <a href="?page={{ accommodation_list.previous_page_number }}">previous</a> |
+                <a href="?page={{ forum.previous_page_number }}">previous</a> |
             {% endif %}
     
-            {% if accommodation_list..num_pages > 1 %}
+            {% if forum_list..num_pages > 1 %}
             <span class="current">
-                Page {{ accommodation_list.number }} of {{ accommodation_list..num_pages }} |
+                Page {{ forum.number }} of {{ forum..num_pages }} |
             </span>
             {% endif %}
     
-            {% if accommodation_list.has_next %}
-                <a href="?page={{ accommodation_list.next_page_number }}">next</a> |
-                <a href="?page={{ accommodation_list..num_pages }}">last &raquo;</a>
+            {% if forum_list.has_next %}
+                <a href="?page={{ forum_list.next_page_number }}">next</a> |
+                <a href="?page={{ forum_list..num_pages }}">last &raquo;</a>
             {% endif %}
         </span>
     </div>
@@ -108,7 +108,7 @@ Forum list
         <span class="step-links">
             {% if page_obj.has_previous %}
                 <a href="?page=1">&laquo; first</a> |
-                <a href="?page={{ accommodation_list.previous_page_number }}">previous</a> |
+                <a href="?page={{ forum_list.previous_page_number }}">previous</a> |
             {% endif %}
     
             {% if page_obj..num_pages > 1 %}

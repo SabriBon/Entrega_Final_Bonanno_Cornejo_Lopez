@@ -9,6 +9,7 @@ class Forum(models.Model):
     description = RichTextField(null=True, blank=True)
 
 
+
 def __str__(self):
     return f"{self.name} - {self.email} - {self.contact} - {self.description}"
 

@@ -59,13 +59,20 @@ Forum list
     <!-- -->
     <!-- Post preview-->
 <div class="post-preview">
-    <h3 class="post-subtitle">El foro {{ forum.name }}</h3>
-    
+    <h3 class="post-subtitle">El mensaje de {{ forum.name }}</h3>
+
     <p class="post-meta">
-        Creado por
-        <a href="#!">Start Bootstrap</a> 
+        <span style="color: #0b4956;" href="">{{ forum.owner.username }}</span>
+        ( {{ forum.created_at }} )
+        <br>
+        Dirección de contacto: {{ forum.email }}
     </p>
+
+    <!-- Description -->
     <p class="card-text ">{{ forum1.description|safe }}</p> <!-- ckeditor-->
+
+    <!-- Update-Delete link only for the owner -->
+    {% if user == accommodation.owner or user.is_superuser %}
     <p style="text-align: center">
         <a href="{% url 'forum:forum-update' forum.id %}">
             <i class="fa fa-pencil" style="color: #1c1c91;"></i> Editar
@@ -75,5 +82,5 @@ Forum list
             <i class="fa fa-trash" style="color: #881a1a;"></i> Eliminar 
         </a>
     </p>
-</div>
+    {% endif %}
 {% endblock %}
