@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.core.validators import MinLengthValidator
+
 from django.db import models
 from ckeditor.fields import RichTextField
 
@@ -20,12 +20,4 @@ class Destino(models.Model):
         return f"{self.name} - {self.year} - {self.description}"
 
 
-class Comment(models.Model):
-    text = models.TextField(
-        validators=[
-            MinLengthValidator(10, "El comentario debe tener como mínimo 10 caracteres")
-        ]
-    )
-    destino = models.ForeignKey(Destino, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)        
+

@@ -103,7 +103,6 @@ Find your local number: https://us02web.zoom.us/u/kdTPIxluQK
 
     <!-- Image -->
     {% if destino.image %}
-    <div style="text-align: center;">
     <img height="250px" src="{{ destino.image.url }}">
     </div>
     {% endif %} 
@@ -126,27 +125,4 @@ Find your local number: https://us02web.zoom.us/u/kdTPIxluQK
 </div>
 {% endif %}
 
-<!-- Divider-->
-<hr class="my-4" />
-
-<!-- Comment creation -->
-<form method="POST" action="{% url 'my_app:comment-create' destino.id %}">
-    {% csrf_token %}
-    {{ comment_form }}
-<input type="submit" value="Publicar comentario">
-</form>
-{% if not comments %}
-    <p></p>
-{% endif %}
-
-<!-- Comments list -->
-{% for comment in comments %}
-    <p> {{ comment.text }}
-        ({{ comment.owner.username }} | {{ comment.updated_at }})
-        {% if user == comment.owner or user.is_superuser %}
-        <a href="{% url 'my_app:comment-delete' comment.id %}"><i class="fa fa-trash" style="color: #881a1a;"></i></a>
-        {% endif %}
-    </p>
-{% endfor %}
-</div>
 {% endblock %}
