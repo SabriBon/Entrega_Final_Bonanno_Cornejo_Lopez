@@ -69,7 +69,7 @@ class AccommodationCreateView(LoginRequiredMixin, CreateView):
 
 class AccommodationUpdateView(LoginRequiredMixin, UpdateView):
     model = Accommodation
-    fields = ["name","description", "image"]
+    fields = ["name","contact", "price", "description"]
 
     def get_success_url(self):
         accommodation_id = self.kwargs["pk"]

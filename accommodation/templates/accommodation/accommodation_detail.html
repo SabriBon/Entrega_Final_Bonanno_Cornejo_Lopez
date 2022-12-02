@@ -78,12 +78,6 @@ Accommodation detail
              
     </p>
 
-    <!-- Image -->
-    {% if accommodation.image %}
-        <div style="text-align: center;">
-            <img height="250px" src="{{ accommodation.image.url }}">
-        </div>
-    {% endif %}    
     
     <!-- Description -->
     <p class="card-text ">Comentario: {{ accommodation.description|safe }}</p> <!-- ckeditor-->

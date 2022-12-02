@@ -9,7 +9,7 @@ class Accommodation(models.Model):
     description = RichTextField(null=True, blank=True)
     contact = models.IntegerField(null=True, blank=True)
     price = models.FloatField(null=True, blank=True)
-    image = models.ImageField(upload_to='accommodation', null=True, blank=True)
+
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comments = models.ManyToManyField(
         User, through="Comment", related_name="comments_owned"

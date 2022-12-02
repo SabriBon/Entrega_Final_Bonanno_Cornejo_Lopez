@@ -63,11 +63,11 @@ class AccommodationForm(forms.ModelForm):
         ),
     )
 
-    image = forms.ImageField()
+
 
     class Meta:
         model = Accommodation
-        fields = ["name", "location", "contact", "price", "description","image" ]
+        fields = ["name", "location", "contact", "price", "description", ]
 
 class CommentForm(forms.Form):
     comment_text = forms.CharField(
